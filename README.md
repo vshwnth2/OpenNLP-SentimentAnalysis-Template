@@ -1,1 +1,2 @@
-# pio_opennlp
+# pio_corenlp
+PIO and CoreNLP Sentiment Analysis
