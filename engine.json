@@ -4,7 +4,7 @@
   "engineFactory": "io.prediction.opennlp.engine.EngineFactory",
   "datasource": {
     "params" : {
-      "trainingPath" : "./data/all.txt",
+      "appId" : 3,
       "cutoff": 2
     }
   },

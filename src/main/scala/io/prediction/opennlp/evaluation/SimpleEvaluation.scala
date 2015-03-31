@@ -15,19 +15,23 @@ class SimpleEvaluation extends Evaluation with EngineParamsGenerator {
   engineParamsList = Seq(
     EngineParams(
       algorithmParamsList = Seq(("algo", AlgorithmParams(300, true))),
-      dataSourceParams = DataSourceParams("./data/train.txt", 10, Some("./data/test.txt"))),
+      dataSourceParams = DataSourceParams(3, 10)),
     EngineParams(
       algorithmParamsList = Seq(("algo", AlgorithmParams(300, true))),
-      dataSourceParams = DataSourceParams("./data/train.txt", 5, Some("./data/test.txt"))),
+      dataSourceParams = DataSourceParams(3, 5)),
     EngineParams(
       algorithmParamsList = Seq(("algo", AlgorithmParams(300, true))),
-      dataSourceParams = DataSourceParams("./data/train.txt", 2, Some("./data/test.txt"))),
+      dataSourceParams = DataSourceParams(3, 2)),
     EngineParams(
-      algorithmParamsList = Seq(("algo", AlgorithmParams(300, true))),
-      dataSourceParams = DataSourceParams("./data/train.txt", 1, Some("./data/test.txt"))),
+      algorithmParamsList = Seq(("algo", AlgorithmParams(500, true))),
+      dataSourceParams = DataSourceParams(3, 10)),
     EngineParams(
-      algorithmParamsList = Seq(("algo", AlgorithmParams(300, true))),
-      dataSourceParams = DataSourceParams("./data/train.txt", 20, Some("./data/test.txt")))
+      algorithmParamsList = Seq(("algo", AlgorithmParams(500, true))),
+      dataSourceParams = DataSourceParams(3, 5)),
+    EngineParams(
+      algorithmParamsList = Seq(("algo", AlgorithmParams(500, true))),
+      dataSourceParams = DataSourceParams(3, 2))
+
 
   )
 
