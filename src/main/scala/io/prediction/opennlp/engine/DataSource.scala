@@ -1,6 +1,5 @@
 package io.prediction.opennlp.engine
 
-import edu.stanford.nlp.trees.Tree
 import io.prediction.controller.{EmptyEvaluationInfo, EmptyParams, PDataSource}
 import io.prediction.data.storage.Storage
 import io.prediction.opennlp.engine.Sentiment.Sentiment
@@ -9,7 +8,6 @@ import opennlp.model.OnePassDataIndexer
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
-import scala.collection.JavaConversions._
 import scala.util.Random
 
 class DataSource(val dsp: DataSourceParams) extends PDataSource[
@@ -21,19 +19,19 @@ class DataSource(val dsp: DataSourceParams) extends PDataSource[
   val Separator = " "
 
   override def readTraining(sc: SparkContext): TrainingData = {
-    val trainingTreeStrings = allTreeStrings(sc)
-    treeStringsToTrainingData(trainingTreeStrings)
+    val trainingTreeStrings = allPhraseAndSentiments(sc)
+    phraseAndSentimentsToTrainingData(trainingTreeStrings)
   }
 
   override def readEval(
     sc: SparkContext): Seq[(TrainingData, EmptyEvaluationInfo, RDD[(Query, Sentiment)])] = {
-    val shuffledTreeStrings = Random.shuffle(allTreeStrings(sc))
-    val (trainingTreeStrings, testingTreeStrings) =
-      shuffledTreeStrings.splitAt((shuffledTreeStrings.size*0.9).toInt)
+    val shuffled = Random.shuffle(allPhraseAndSentiments(sc))
+    val (trainingSet, testingSet) =
+      shuffled.splitAt((shuffled.size*0.9).toInt)
 
-    val trainingData = treeStringsToTrainingData(trainingTreeStrings)
+    val trainingData = phraseAndSentimentsToTrainingData(trainingSet)
 
-    val qna = testingTreeStrings.map { line =>
+    val qna = testingSet.map { line =>
       val lastSpace = line.lastIndexOf(Separator)
       (Query(line.substring(0, lastSpace)), Sentiment(line.substring(lastSpace + 1).toInt))
     }
@@ -41,40 +39,22 @@ class DataSource(val dsp: DataSourceParams) extends PDataSource[
     Seq((trainingData, EmptyParams(), sc.parallelize(qna)))
   }
 
-  private def allTreeStrings(sc: SparkContext): Seq[String] = {
-    val events = Storage.getPEvents().find(appId = dsp.appId, entityType = Some("tree"))(sc)
+  private def allPhraseAndSentiments(sc: SparkContext): Seq[String] = {
+    val events = Storage.getPEvents().find(appId = dsp.appId, entityType = Some("phrase"))(sc)
 
-    events.flatMap { event =>
-      val tree = event.properties.get[String]("tree")
-      treeToList(tree)
+    events.map { event =>
+      val phrase = event.properties.get[String]("phrase")
+      val sentiment = event.properties.get[String]("sentiment")
+
+      s"$phrase $sentiment"
     }.collect().toSeq
   }
 
-  private def treeStringsToTrainingData(treeStrings: Seq[String]) = {
-    val eventStream = new BasicEventStream(new SeqDataStream(treeStrings), Separator)
+  private def phraseAndSentimentsToTrainingData(phraseAndSentiments: Seq[String]) = {
+    val eventStream = new BasicEventStream(new SeqDataStream(phraseAndSentiments), Separator)
     val dataIndexer = new OnePassDataIndexer(eventStream, dsp.cutoff)
 
     TrainingData(dataIndexer)
-  }
-
-  private def treeToList(treeString: String) = {
-    val tree = Tree.valueOf(treeString)
-
-    tree.subTreeList().map { subtree =>
-      if (!subtree.isLeaf) {
-        val stringBuilder = new StringBuilder()
-
-        subtree.subTreeList().foreach { subsubtree =>
-          if (subsubtree.isLeaf)
-            stringBuilder.append(s"${subsubtree.label().value()} ")
-        }
-
-        stringBuilder.append(subtree.label().value())
-
-        stringBuilder.toString()
-      } else null
-    }.filter(_ != null).toSeq
-
   }
 }
 

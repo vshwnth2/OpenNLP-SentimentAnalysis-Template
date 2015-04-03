@@ -7,15 +7,20 @@ $accessKey = 'IRHihGhwtY5iE4RiGcAjyn4e4I8hbk4fBdfSRUu0x2iWzObXMH5IGeu2kd4EcvjI';
 $client = new EventClient($accessKey, 'http://localhost:7070');
 
 $i = 1;
-$handle = fopen("./dev.txt", "r");
+$handle = fopen("./train.txt", "r");
 if ($handle) {
   while (($line = fgets($handle)) !== false) {
+    $line = trim($line);
+    $sentiment = substr($line, strlen($line)-1);
+    $phrase = substr($line, 0, strlen($line)-2);
+
     $response = $client->createEvent(array(
       'event' => '$set',
-      'entityType' => 'tree',
+      'entityType' => 'phrase',
       'entityId' => $i,
       'properties' => array(
-        'tree'=>rtrim($line),
+        'phrase'=> $phrase,
+        'sentiment'=> $sentiment
       )
     ));
     print_r($response);
