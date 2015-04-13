@@ -15,12 +15,9 @@ def import_events(client, file):
       event="set",
       entity_type="phrase",
       entity_id=count,
-      properties= { "phrase" : data[0], "sentiment": data[1] }
+      properties= { "phrase" : data[0], "sentiment": data[len(data) - 1] }
     )
     count += 1
-    print data[0]
-    print data[len(data) - 1]
-    print
   f.close()
   print "%s events are imported." % count
 
