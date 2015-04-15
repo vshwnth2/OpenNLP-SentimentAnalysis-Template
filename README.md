@@ -16,9 +16,8 @@ By default, the template requires the following events to be collected (we can c
 - user $set event, which set the attributes of the user
 
 ### Input Query
-- array of phrase
 ```
-{"sentence": ["This is a sentence."]}
+{"sentence": "This is a sentence . "}
 ```
 
 ### Output Predicted Result
