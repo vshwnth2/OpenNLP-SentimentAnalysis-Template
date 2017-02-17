@@ -1,7 +1,7 @@
 {
   "id": "default",
   "description": "Default settings",
-  "engineFactory": "io.prediction.opennlp.engine.EngineFactory",
+  "engineFactory": "org.apache.predictionio.opennlp.engine.EngineFactory",
   "datasource": {
     "params" : {
       "appId" : 3,

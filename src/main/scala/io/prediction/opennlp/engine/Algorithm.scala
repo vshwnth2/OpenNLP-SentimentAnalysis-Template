@@ -1,6 +1,6 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
-import io.prediction.controller.P2LAlgorithm
+import org.apache.predictionio.controller.P2LAlgorithm
 import opennlp.maxent.GIS
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD

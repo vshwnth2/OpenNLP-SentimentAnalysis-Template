@@ -1,10 +1,10 @@
-package io.prediction.opennlp.evaluation
+package org.apache.predictionio.opennlp.evaluation
 
-import io.prediction.controller.EmptyEvaluationInfo
-import io.prediction.controller.Metric
-import io.prediction.opennlp.engine.PredictedResult
-import io.prediction.opennlp.engine.Query
-import io.prediction.opennlp.engine.Sentiment.Sentiment
+import org.apache.predictionio.controller.EmptyEvaluationInfo
+import org.apache.predictionio.controller.Metric
+import org.apache.predictionio.opennlp.engine.PredictedResult
+import org.apache.predictionio.opennlp.engine.Query
+import org.apache.predictionio.opennlp.engine.Sentiment.Sentiment
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 

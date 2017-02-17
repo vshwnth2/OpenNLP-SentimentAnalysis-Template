@@ -1,11 +1,11 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
 import java.io.File
 import java.io.FileInputStream
 import java.util.zip.GZIPInputStream
 
-import io.prediction.controller.IPersistentModel
-import io.prediction.controller.IPersistentModelLoader
+import org.apache.predictionio.controller.IPersistentModel
+import org.apache.predictionio.controller.IPersistentModelLoader
 import opennlp.maxent.io.GISModelReader
 import opennlp.maxent.io.SuffixSensitiveGISModelWriter
 import opennlp.model.AbstractModel

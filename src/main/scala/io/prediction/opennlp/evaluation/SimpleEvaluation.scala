@@ -1,15 +1,15 @@
-package io.prediction.opennlp.evaluation
+package org.apache.predictionio.opennlp.evaluation
 
-import io.prediction.controller.Engine
-import io.prediction.controller.EngineParams
-import io.prediction.controller.EngineParamsGenerator
-import io.prediction.controller.Evaluation
-import io.prediction.opennlp.engine.Algorithm
-import io.prediction.opennlp.engine.AlgorithmParams
-import io.prediction.opennlp.engine.DataSource
-import io.prediction.opennlp.engine.DataSourceParams
-import io.prediction.opennlp.engine.Preparator
-import io.prediction.opennlp.engine.Serving
+import org.apache.predictionio.controller.Engine
+import org.apache.predictionio.controller.EngineParams
+import org.apache.predictionio.controller.EngineParamsGenerator
+import org.apache.predictionio.controller.Evaluation
+import org.apache.predictionio.opennlp.engine.Algorithm
+import org.apache.predictionio.opennlp.engine.AlgorithmParams
+import org.apache.predictionio.opennlp.engine.DataSource
+import org.apache.predictionio.opennlp.engine.DataSourceParams
+import org.apache.predictionio.opennlp.engine.Preparator
+import org.apache.predictionio.opennlp.engine.Serving
 
 class SimpleEvaluation extends Evaluation with EngineParamsGenerator {
   engineParamsList = Seq(
