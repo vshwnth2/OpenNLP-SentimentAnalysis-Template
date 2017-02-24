@@ -14,7 +14,7 @@ class Algorithm(val ap: AlgorithmParams)
 
   def predict(model: Model, query: Query): PredictedResult = {
     val sentiment = Sentiment(
-      model.gis.getBestOutcome(model.gis.eval(query.sentence.split(" "))).toInt)
+      model.gis.getBestOutcome(model.gis.eval(query.sentence.split(" "))).toFloat.toInt)
     PredictedResult(sentiment.toString)
   }
 
