@@ -1,6 +1,6 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
-import io.prediction.controller.LServing
+import org.apache.predictionio.controller.LServing
 
 class Serving extends LServing[Query, PredictedResult] {
 

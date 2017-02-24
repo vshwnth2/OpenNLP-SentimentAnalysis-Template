@@ -1,6 +1,6 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
-import io.prediction.controller.P2LAlgorithm
+import org.apache.predictionio.controller.P2LAlgorithm
 import opennlp.maxent.GIS
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
@@ -14,7 +14,7 @@ class Algorithm(val ap: AlgorithmParams)
 
   def predict(model: Model, query: Query): PredictedResult = {
     val sentiment = Sentiment(
-      model.gis.getBestOutcome(model.gis.eval(query.sentence.split(" "))).toInt)
+      model.gis.getBestOutcome(model.gis.eval(query.sentence.split(" "))).toFloat.toInt)
     PredictedResult(sentiment.toString)
   }
 

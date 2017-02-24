@@ -1,4 +1,4 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
 import opennlp.maxent.DataStream
 

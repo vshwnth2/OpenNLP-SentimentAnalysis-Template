@@ -1,6 +1,6 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
-import io.prediction.controller.{Engine, IEngineFactory}
+import org.apache.predictionio.controller.{Engine, IEngineFactory}
 
 object EngineFactory extends IEngineFactory {
   def apply() = {

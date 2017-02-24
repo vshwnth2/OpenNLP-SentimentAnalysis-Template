@@ -1,8 +1,8 @@
-package io.prediction.opennlp.engine
+package org.apache.predictionio.opennlp.engine
 
-import io.prediction.controller.{EmptyEvaluationInfo, EmptyParams, PDataSource}
-import io.prediction.data.storage.Storage
-import io.prediction.opennlp.engine.Sentiment.Sentiment
+import org.apache.predictionio.controller.{EmptyEvaluationInfo, EmptyParams, PDataSource}
+import org.apache.predictionio.data.storage.Storage
+import org.apache.predictionio.opennlp.engine.Sentiment.Sentiment
 import opennlp.maxent.BasicEventStream
 import opennlp.model.OnePassDataIndexer
 import org.apache.spark.SparkContext
@@ -36,7 +36,7 @@ class DataSource(val dsp: DataSourceParams) extends PDataSource[
       (Query(line.substring(0, lastSpace)), Sentiment(line.substring(lastSpace + 1).toInt))
     }
 
-    Seq((trainingData, EmptyParams(), sc.parallelize(qna)))
+    Seq((trainingData, new EmptyEvaluationInfo(), sc.parallelize(qna)))
   }
 
   private def allPhraseAndSentiments(sc: SparkContext): Seq[String] = {
